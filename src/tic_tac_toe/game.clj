@@ -1,4 +1,4 @@
-(ns tic-tac-toe.core
+(ns tic-tac-toe.game
   (:gen-class))
 
 (defn -main
