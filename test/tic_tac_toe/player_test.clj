@@ -33,3 +33,9 @@
       (is (not (player/won? board :x))))
     (let [board [[:x, nil, nil] [:x, nil, nil] [nil, :x, :x]]]
       (is (not (player/won? board :x))))))
+
+(deftest switch-player
+  (testing "to player 1"
+    (is (= player/player-1 (player/switch-player player/player-2))))
+  (testing "to player 2"
+    (is (= player/player-2 (player/switch-player player/player-1)))))

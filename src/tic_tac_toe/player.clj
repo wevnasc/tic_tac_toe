@@ -25,3 +25,8 @@
         (every? is-player? current-plays)
         (recur board player (rest winner-list)))))))
 
+(defn switch-player
+  [player]
+  (if (= player player-1)
+    player-2
+    player-1))
