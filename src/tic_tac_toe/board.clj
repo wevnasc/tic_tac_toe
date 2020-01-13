@@ -1,6 +1,6 @@
 (ns tic-tac-toe.board)
 
-(def board
+(def empty-board
   [[nil, nil, nil]
    [nil, nil, nil]
    [nil, nil, nil]])
@@ -16,7 +16,9 @@
   (range-validator 0 2))
 
 (defn update-board
-  [board [x y] value]
-  (when (every? valid-board-value? [x y])
-    (assoc-in board [x y] value)))
+  [board position value]
+  (let [fit?            (every? valid-board-value? position)
+        position-empty? (nil? (get-in board position))]
+    (when (and fit? position-empty?)
+      (assoc-in board position value))))
 
