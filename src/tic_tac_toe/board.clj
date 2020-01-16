@@ -5,6 +5,8 @@
    [nil, nil, nil]
    [nil, nil, nil]])
 
+(def title "TIC TAC TOI GAME!!!")
+
 (defn ^:private range-validator
   [min max]
   (fn [value]
@@ -22,3 +24,6 @@
     (when (and fit? position-empty?)
       (assoc-in board position value))))
 
+(defn board->result
+  ([board] (board->result board title))
+  ([board message] {:board board :message message}))

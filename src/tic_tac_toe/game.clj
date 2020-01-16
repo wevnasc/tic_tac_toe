@@ -1,16 +1,17 @@
 (ns tic-tac-toe.game
   (:require [tic-tac-toe.board :as board]
             [tic-tac-toe.player :as player]
-            [clojure.pprint :as p]))
+            [tic-tac-toe.console.input :as console.input]
+            [tic-tac-toe.console.output :as console.output]))
 
-(def empty-state
+(def ^:private empty-state
   {:board board/empty-board
    :player player/player-1})
 
-(def state
+(def ^:private state
   (atom empty-state))
 
-(defn start!
+(defn ^:private restart!
   []
   (swap! state merge empty-state))
 
@@ -21,6 +22,17 @@
         next-player            (player/switch-player player)
         player-won?            (player/won? updated-board player)]
     (cond
-      (nil? updated-board) "the position passed not is valid, plase try again"
-      (true? player-won?)  (str "The player " player " is the winner!")
-      :else                (swap! state merge {:board updated-board :player next-player}))))
+      (nil? updated-board) (board/board->result board "the position passed not is valid, plase try again")
+      (true? player-won?)  (board/board->result updated-board (str "The player " (name player) " is the winner!"))
+      :else                (do (swap! state merge {:board updated-board :player next-player})
+                               (board/board->result updated-board)))))
+(defn start!
+  []
+  (loop [command (console.input/get-command!)]
+    (case command
+      :restart (do (restart!)
+                   (recur (console.input/get-command!)))
+      :exit nil
+      (do
+        (console.output/print-pretty-result! (play! command))
+        (recur (console.input/get-command!))))))
