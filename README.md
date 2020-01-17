@@ -1,8 +1,8 @@
-# tic-tac-toe
+# tic-tac-toe :video_game:
 
-Sample tic tac toe game made using clojure.
+Sample tic tac toe game made using clojure. 
 
-Note: don't expect much from this game.
+Note: don't expect much from this game. :stuck_out_tongue_winking_eye:
 
 ## Installation
 
